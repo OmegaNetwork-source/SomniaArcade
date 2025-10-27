@@ -60,15 +60,8 @@ document.querySelector('.btn-connect')?.addEventListener('click', (e) => {
     alert('Wallet connection coming soon! This will integrate with your preferred Web3 wallet.');
 });
 
-// Play Button functionality
-document.querySelectorAll('.btn-play').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const gameName = e.target.closest('.game-card').querySelector('h3').textContent;
-        // Placeholder for game launch logic
-        alert(`Launching ${gameName}...`);
-        // In production, this would navigate to the game or open it in a modal
-    });
-});
+// Play Button functionality - now handled by direct links in HTML
+// Bushido links to: https://bushido-omega.vercel.app/
 
 // Parallax effect for hero visual elements
 window.addEventListener('scroll', () => {

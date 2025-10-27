@@ -545,6 +545,7 @@ body::after {
 }
 
 .btn-play {
+    display: block;
     width: 100%;
     padding: 1rem;
     background: var(--gradient-main);
@@ -555,11 +556,14 @@ body::after {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
 }
 
 .btn-play:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(107, 0, 229, 0.6);
+    color: white;
 }
 
 .game-card.coming-soon {

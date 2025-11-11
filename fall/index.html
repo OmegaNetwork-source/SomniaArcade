@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re-Entry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20251110">
+</head>
+<body>
+    <div class="shell">
+        <header class="hud">
+            <div class="hud-brand">
+                <div class="hud-icon"></div>
+                <div>
+                    <h1>Re-Entry</h1>
+                    <p>Terminal dive protocol. Navigate debris. Reach the surface.</p>
+                </div>
+            </div>
+            <div class="hud-stats">
+                <div class="stat">
+                    <span class="label">Depth</span>
+                    <span id="depth" class="value">0 m</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Best</span>
+                    <span id="best-depth" class="value">0 m</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Shield</span>
+                    <span id="shield" class="value">100%</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Charge</span>
+                    <span id="charge-count" class="value">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Lives</span>
+                    <span id="lives" class="value">3</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="stage">
+            <canvas id="game-canvas" width="768" height="1024"></canvas>
+
+            <div class="overlay overlay--start" id="start-overlay">
+                <div class="overlay-card">
+                    <h2>Re-Entry</h2>
+                    <p>You are descending through the broken orbital ring. Dodge fractured hulls and quantum snares, harvest charge, and survive the plunge.</p>
+                    <ul class="controls">
+                        <li><span>← → / A D</span> Strafe</li>
+                        <li><span>Space</span> Pulse shield (consume charge)</li>
+                        <li><span>Swipe / Tilt</span> (mobile strafe)</li>
+                    </ul>
+                    <button id="start-btn" class="btn-primary">Initiate Drop</button>
+                </div>
+            </div>
+
+            <div class="overlay overlay--hidden" id="gameover-overlay">
+                <div class="overlay-card">
+                    <h2>Impact Recorded</h2>
+                    <p id="final-readout"></p>
+                    <button id="retry-btn" class="btn-primary">Reattempt Entry</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <span>Somnia Arcade Labs // Re-Entry prototype 0.1</span>
+            <div class="footer-links">
+                <a href="../index.html">Back to Arcade</a>
+                <a href="#" id="show-controls">Controls</a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="game.js?v=20251110"></script>
+</body>
+</html>
+

@@ -1393,6 +1393,28 @@ body::after {
     color: var(--somnia-cyan);
 }
 
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--somnia-cyan);
+    transform: translateX(4px);
+}
+
+.social-icon {
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
 .footer-section p {
     color: var(--text-secondary);
     font-size: 0.875rem;

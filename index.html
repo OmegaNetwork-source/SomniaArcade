@@ -17,6 +17,14 @@
             <div class="nav-links">
                 <a href="#games">Games</a>
                 <a href="#about">About</a>
+                <a href="#somi">SOMI</a>
+                <div class="wallet-section">
+                    <div id="somi-balance" class="somi-balance" style="display: none;">
+                        <span class="somi-label">SOMI:</span>
+                        <span id="somi-amount" class="somi-amount">0</span>
+                    </div>
+                    <button class="btn-connect" id="connect-wallet-btn">Connect Wallet</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -33,9 +41,12 @@
             <p class="hero-subtitle">
                 Play games, compete with friends, and win prizes. Wave 1 is launching soon on Somnia.
             </p>
+            <div class="hero-somi-notice">
+                <p class="somi-notice-text">💎 <strong>SOMI required</strong> for full experience. <a href="#somi" class="somi-link">Learn more</a></p>
+            </div>
             <div class="hero-buttons">
                 <a href="#games" class="btn-primary">Explore Games</a>
-                <a href="#about" class="btn-secondary">Learn More</a>
+                <a href="#somi" class="btn-secondary">Get SOMI</a>
             </div>
         </div>
         <div class="hero-visual">
@@ -74,12 +85,8 @@
                                 <span class="stat-value">1,234</span>
                                 <span class="stat-label">Players</span>
                             </div>
-                            <div class="stat">
-                                <span class="stat-value">4.9</span>
-                                <span class="stat-label">Rating</span>
-                            </div>
                         </div>
-                        <a href="https://bushidogame.solarstudios.co/" target="_blank" class="btn-play">Play Now</a>
+                        <a href="https://bushido-omega.vercel.app/" target="_blank" class="btn-play">Play Now</a>
                     </div>
                 </div>
 
@@ -112,10 +119,6 @@
                                 <span class="stat-value">2,415</span>
                                 <span class="stat-label">Pilots</span>
                             </div>
-                            <div class="stat">
-                                <span class="stat-value">4.7</span>
-                                <span class="stat-label">Rating</span>
-                            </div>
                         </div>
                         <a href="https://spacepilot.solarstudios.co/" target="_blank" rel="noopener noreferrer" class="btn-play">Play Now</a>
                     </div>
@@ -145,10 +148,6 @@
                             <div class="stat">
                                 <span class="stat-value">3,608</span>
                                 <span class="stat-label">Players</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">4.8</span>
-                                <span class="stat-label">Rating</span>
                             </div>
                         </div>
                         <a href="https://snake.solarstudios.co/" target="_blank" rel="noopener noreferrer" class="btn-play">Play Now</a>
@@ -262,6 +261,73 @@
                 <div class="feature-icon icon-rewards"></div>
                 <h3>Play & Earn</h3>
                 <p>Earn rewards while playing your favorite games on the blockchain</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOMI Section -->
+    <section id="somi" class="somi-section">
+        <div class="section-header">
+            <h2>Unlock the Full Experience with SOMI</h2>
+            <p>Connect your wallet and get SOMI to access premium features</p>
+        </div>
+
+        <div class="somi-comparison">
+            <div class="comparison-card">
+                <div class="comparison-header without">
+                    <h3>Without SOMI</h3>
+                </div>
+                <ul class="comparison-features">
+                    <li class="limited">✓ Basic gameplay</li>
+                    <li class="limited">✓ Limited game modes</li>
+                    <li class="limited">✓ No rewards</li>
+                    <li class="limited">✓ No leaderboard access</li>
+                    <li class="limited">✓ No NFT features</li>
+                </ul>
+            </div>
+
+            <div class="comparison-card featured">
+                <div class="comparison-header with">
+                    <h3>With SOMI</h3>
+                    <span class="badge-premium">Premium</span>
+                </div>
+                <ul class="comparison-features">
+                    <li class="premium">✓ Full game access</li>
+                    <li class="premium">✓ All game modes unlocked</li>
+                    <li class="premium">✓ Earn rewards & prizes</li>
+                    <li class="premium">✓ Global leaderboards</li>
+                    <li class="premium">✓ NFT integration</li>
+                    <li class="premium">✓ Exclusive tournaments</li>
+                    <li class="premium">✓ Early access to new games</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="somi-actions">
+            <div class="somi-balance-card" id="main-somi-balance" style="display: none;">
+                <div class="balance-header">
+                    <h3>Your SOMI Holdings</h3>
+                </div>
+                <div class="balance-display">
+                    <span class="balance-amount" id="main-somi-amount">0</span>
+                    <span class="balance-label">SOMI</span>
+                </div>
+            </div>
+            <div class="buy-somi-section">
+                <h3>Where to Buy SOMI</h3>
+                <p>Get SOMI tokens to unlock the full Somnia Arcade experience</p>
+                <div class="buy-buttons">
+                    <a href="#" class="btn-buy-somi" id="dex-btn" target="_blank" rel="noopener noreferrer">
+                        <span class="btn-icon">💱</span>
+                        Buy on DEX
+                        <span class="btn-badge">Recommended</span>
+                    </a>
+                    <a href="#" class="btn-buy-somi secondary" target="_blank" rel="noopener noreferrer">
+                        <span class="btn-icon">🏪</span>
+                        View Markets
+                    </a>
+                </div>
+                <p class="buy-note">Connect your wallet to see your balance and buy directly</p>
             </div>
         </div>
     </section>

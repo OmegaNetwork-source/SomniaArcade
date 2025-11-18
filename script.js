@@ -321,6 +321,191 @@ document.querySelectorAll('.game-stats').forEach(stats => {
 
 // Gradient text animation is now handled via CSS animations
 
+// Image Modal Functions
+function viewFullImage(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modalImg.src = imageSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+
+// Load gallery images from postimg.cc
+document.addEventListener('DOMContentLoaded', async () => {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Manual direct URLs map - update these with actual direct image URLs if known
+    // Format: code -> direct URL
+    const manualDirectUrls = {
+        // Example: 'SnrxwD72': 'https://i.postimg.cc/SnrxwD72/image.png',
+    };
+    
+    // Process each gallery item
+    for (const item of galleryItems) {
+        const img = item.querySelector('img');
+        const pageUrl = item.dataset.pageUrl;
+        const code = item.dataset.imageCode;
+        
+        // Check manual URLs first
+        if (manualDirectUrls[code]) {
+            img.src = manualDirectUrls[code];
+            img.style.opacity = '1';
+            
+            item.addEventListener('click', () => {
+                viewFullImage(img.src);
+            });
+            continue;
+        }
+        
+        // Try expanded list of possible URL formats (more comprehensive)
+        const possibleUrls = [
+            // Direct postimg.cc image CDN formats
+            `https://i.postimg.cc/${code}/image.png`,
+            `https://i.postimg.cc/${code}/image.jpg`,
+            `https://i.postimg.cc/${code}.png`,
+            `https://i.postimg.cc/${code}.jpg`,
+            `https://i.postimg.cc/${code}`,
+            // Alternative CDN paths
+            `https://i.postimg.cc/gallery/${code}.png`,
+            `https://i.postimg.cc/gallery/${code}.jpg`,
+            // Base domain formats (less likely but worth trying)
+            `https://postimg.cc/${code}/image.png`,
+            `https://postimg.cc/${code}/image.jpg`,
+            `https://postimg.cc/${code}.png`,
+            `https://postimg.cc/${code}.jpg`,
+        ];
+        
+        let loaded = false;
+        let triedUrls = [];
+        
+        // Try loading each URL
+        for (const url of possibleUrls) {
+            const loadedUrl = await new Promise((resolve) => {
+                const testImg = new Image();
+                testImg.onload = () => {
+                    resolve(url);
+                };
+                testImg.onerror = () => {
+                    resolve(null);
+                };
+                // Set timeout to prevent hanging
+                setTimeout(() => resolve(null), 3000);
+                testImg.src = url;
+            });
+            
+            if (loadedUrl) {
+                img.src = loadedUrl;
+                img.style.opacity = '1';
+                loaded = true;
+                break;
+            }
+        }
+        
+        // If all URL attempts failed, try fetching via CORS proxy (silently fail if it doesn't work)
+        if (!loaded) {
+            try {
+                // Try alternative CORS proxies silently
+                const proxies = [
+                    `https://api.allorigins.win/get?url=${encodeURIComponent(pageUrl)}`,
+                    `https://corsproxy.io/?${encodeURIComponent(pageUrl)}`
+                ];
+                
+                for (const proxyUrl of proxies) {
+                    try {
+                        const response = await Promise.race([
+                            fetch(proxyUrl),
+                            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000))
+                        ]);
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            const html = data.contents || data;
+                            
+                            // Extract image URL from HTML
+                            const imgMatch = html.match(/https?:\/\/i\.postimg\.cc\/[^\s"']+\.(png|jpg|jpeg|webp)/i);
+                            if (imgMatch && imgMatch[0]) {
+                                img.src = imgMatch[0];
+                                img.style.opacity = '1';
+                                loaded = true;
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        // Silently continue to next proxy
+                        continue;
+                    }
+                }
+            } catch (e) {
+                // Silently continue if CORS proxy fails
+            }
+        }
+        
+        // If still not loaded, show placeholder
+        if (!loaded) {
+            img.style.opacity = '0.3';
+            img.style.background = 'rgba(255, 255, 255, 0.05)';
+            img.alt = 'Click to view image';
+            
+            // Check if placeholder already exists
+            let placeholder = item.querySelector('.image-placeholder');
+            if (!placeholder) {
+                placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; pointer-events: none; z-index: 1;';
+                placeholder.textContent = 'Click to view';
+                item.style.position = 'relative';
+                item.appendChild(placeholder);
+            }
+        }
+        
+        // Set up click handler
+        item.addEventListener('click', () => {
+            if (img.src && (img.src.includes('i.postimg.cc') || img.src.includes('postimg.cc'))) {
+                viewFullImage(img.src);
+            } else {
+                window.open(pageUrl, '_blank');
+            }
+        });
+    }
+    
+    // Prevent modal close when clicking on image or button
+    const modalImage = document.getElementById('modalImage');
+    const galleryViewButtons = document.querySelectorAll('.gallery-view-btn');
+    
+    if (modalImage) {
+        modalImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+    
+    galleryViewButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const item = btn.closest('.gallery-item');
+            const img = item.querySelector('img');
+            const pageUrl = item.dataset.pageUrl;
+            if (img.src && (img.src.includes('i.postimg.cc') || img.src.includes('postimg.cc'))) {
+                viewFullImage(img.src);
+            } else {
+                window.open(pageUrl, '_blank');
+            }
+        });
+    });
+});
+
 // Console easter egg
 console.log('%c🎮 Welcome to Somnia Arcade!', 'font-size: 20px; color: #00D4FF; font-weight: bold;');
 console.log('%cBuilt on the Somnia Network', 'font-size: 14px; color: #6B00E5;');

@@ -666,6 +666,8 @@ body::after {
     overflow: hidden;
     transition: all 0.4s ease;
     backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
 }
 
 .game-card:hover {
@@ -899,6 +901,9 @@ body::after {
 
 .game-info {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .game-info h3 {
@@ -951,6 +956,7 @@ body::after {
     transition: all 0.3s ease;
     text-decoration: none;
     text-align: center;
+    margin-top: auto;
 }
 
 .btn-play:hover {

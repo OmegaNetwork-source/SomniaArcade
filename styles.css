@@ -11,18 +11,18 @@
     --somnia-blue: #0080FF;
     --somnia-purple: #6B00E5;
     --somnia-dark-purple: #4A0099;
-    
+
     /* Gradients */
     --gradient-main: linear-gradient(135deg, var(--somnia-blue) 0%, var(--somnia-purple) 60%, var(--somnia-dark-purple) 100%);
     --gradient-hover: linear-gradient(135deg, var(--somnia-purple) 0%, var(--somnia-blue) 50%, var(--somnia-cyan) 100%);
-    
+
     /* Neutrals */
     --bg-primary: #0A0A0F;
     --bg-secondary: #141419;
     --bg-card: rgba(255, 255, 255, 0.03);
     --text-primary: #FFFFFF;
     --text-secondary: rgba(255, 255, 255, 0.7);
-    
+
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
@@ -191,7 +191,7 @@ body {
     padding: var(--spacing-xl) var(--spacing-md);
     position: relative;
     overflow: hidden;
-    background: 
+    background:
         radial-gradient(ellipse at top right, rgba(107, 0, 229, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at bottom left, rgba(74, 0, 153, 0.1) 0%, transparent 50%);
 }
@@ -204,7 +204,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: 
+    background:
         radial-gradient(circle at 20% 50%, rgba(107, 0, 229, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(0, 128, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 40% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
@@ -219,7 +219,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         linear-gradient(45deg, transparent 0%, rgba(107, 0, 229, 0.05) 50%, transparent 100%);
     animation: gradientRotate 15s linear infinite;
     z-index: 0;
@@ -261,14 +261,12 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(
-        90deg,
-        var(--somnia-cyan) 0%,
-        var(--somnia-blue) 25%,
-        var(--somnia-purple) 50%,
-        var(--somnia-blue) 75%,
-        var(--somnia-cyan) 100%
-    );
+    background: linear-gradient(90deg,
+            var(--somnia-cyan) 0%,
+            var(--somnia-blue) 25%,
+            var(--somnia-purple) 50%,
+            var(--somnia-blue) 75%,
+            var(--somnia-cyan) 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -321,7 +319,8 @@ body {
     flex-wrap: wrap;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary,
+.btn-secondary {
     padding: 1rem 2.5rem;
     border-radius: 14px;
     font-size: 1rem;
@@ -468,33 +467,9 @@ body {
 }
 
 /* Add purple accent gradient in background */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: 
-        radial-gradient(ellipse at top right, rgba(107, 0, 229, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at bottom right, rgba(74, 0, 153, 0.06) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulse 8s ease-in-out infinite;
-}
+/* body::before removed to fix red line artifact */
 
-body::after {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 40%;
-    height: 60%;
-    background: radial-gradient(ellipse at bottom left, rgba(0, 128, 255, 0.05) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulse 10s ease-in-out infinite reverse;
-}
+/* body::after removed to fix red line artifact */
 
 /* ===== Games Section ===== */
 .games-section {
@@ -514,7 +489,7 @@ body::after {
     backdrop-filter: blur(12px);
 }
 
-.wave-wrapper + .wave-wrapper {
+.wave-wrapper+.wave-wrapper {
     margin-top: 4rem;
 }
 
@@ -843,11 +818,35 @@ body::after {
     animation: nodeFlicker 3s ease-in-out infinite alternate;
 }
 
-.snake-node-1 { top: 28%; left: 22%; animation-delay: 0s; }
-.snake-node-2 { top: 45%; right: 18%; animation-delay: 0.8s; }
-.snake-node-3 { bottom: 26%; left: 35%; animation-delay: 1.5s; }
-.snake-node-4 { bottom: 18%; right: 30%; animation-delay: 2.2s; }
-.snake-node-5 { top: 15%; right: 40%; animation-delay: 2.8s; }
+.snake-node-1 {
+    top: 28%;
+    left: 22%;
+    animation-delay: 0s;
+}
+
+.snake-node-2 {
+    top: 45%;
+    right: 18%;
+    animation-delay: 0.8s;
+}
+
+.snake-node-3 {
+    bottom: 26%;
+    left: 35%;
+    animation-delay: 1.5s;
+}
+
+.snake-node-4 {
+    bottom: 18%;
+    right: 30%;
+    animation-delay: 2.2s;
+}
+
+.snake-node-5 {
+    top: 15%;
+    right: 40%;
+    animation-delay: 2.8s;
+}
 
 .snake-avatar {
     position: relative;
@@ -1176,6 +1175,7 @@ body::after {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -1186,6 +1186,7 @@ body::after {
         transform: scale(0.8);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -1342,7 +1343,7 @@ body::after {
     font-weight: 700;
 }
 
-.buy-somi-section > p {
+.buy-somi-section>p {
     color: var(--text-secondary);
     margin-bottom: 2rem;
 }
@@ -1594,6 +1595,7 @@ body::after {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1601,19 +1603,25 @@ body::after {
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0) rotate(0deg);
     }
+
     50% {
         transform: translateY(-30px) rotate(5deg);
     }
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.6;
     }
+
     50% {
         transform: scale(1.2);
         opacity: 0.8;
@@ -1621,12 +1629,16 @@ body::after {
 }
 
 @keyframes gradientShift {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) rotate(0deg);
     }
+
     33% {
         transform: translate(30px, -50px) rotate(120deg);
     }
+
     66% {
         transform: translate(-20px, 20px) rotate(240deg);
     }
@@ -1636,81 +1648,107 @@ body::after {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
 @keyframes gradientFlow {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
 }
 
 @keyframes floatDiagonal {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) scale(1);
     }
+
     25% {
         transform: translate(30px, -30px) scale(1.1);
     }
+
     50% {
         transform: translate(60px, 0) scale(1);
     }
+
     75% {
         transform: translate(30px, 30px) scale(0.9);
     }
 }
 
 @keyframes floatCircle {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) rotate(0deg) scale(1);
     }
+
     25% {
         transform: translate(40px, -20px) rotate(90deg) scale(1.05);
     }
+
     50% {
         transform: translate(0, -40px) rotate(180deg) scale(1.1);
     }
+
     75% {
         transform: translate(-40px, -20px) rotate(270deg) scale(1.05);
     }
 }
 
 @keyframes floatSlow {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) scale(1);
     }
+
     33% {
         transform: translate(-20px, 40px) scale(1.1);
     }
+
     66% {
         transform: translate(20px, -30px) scale(0.95);
     }
 }
 
 @keyframes floatMedium {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) scale(1);
     }
+
     50% {
         transform: translate(30px, 30px) scale(1.15);
     }
 }
 
 @keyframes floatFast {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) scale(1);
     }
+
     25% {
         transform: translate(25px, -25px) scale(1.05);
     }
+
     50% {
         transform: translate(-15px, -35px) scale(1.1);
     }
+
     75% {
         transform: translate(-25px, 15px) scale(0.95);
     }
@@ -1720,25 +1758,32 @@ body::after {
     0% {
         transform: translate3d(0, 0, 0);
     }
+
     100% {
         transform: translate3d(-40px, 40px, 0);
     }
 }
 
 @keyframes shipFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-12px);
     }
 }
 
 @keyframes gridPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.4;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.6;
         transform: scale(1.02);
@@ -1750,6 +1795,7 @@ body::after {
         opacity: 0.4;
         transform: scale(0.9);
     }
+
     100% {
         opacity: 1;
         transform: scale(1.15);
@@ -1757,9 +1803,12 @@ body::after {
 }
 
 @keyframes snakeSway {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: rotate(-6deg) translateY(0);
     }
+
     50% {
         transform: rotate(5deg) translateY(-6px);
     }
@@ -1771,63 +1820,63 @@ body::after {
         gap: 0.75rem;
         flex-wrap: wrap;
     }
-    
+
     .nav-links a:not(.btn-connect):not(.somi-link) {
         display: none;
     }
-    
+
     .wallet-section {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .somi-balance {
         font-size: 0.75rem;
         padding: 0.4rem 0.75rem;
     }
-    
+
     .btn-connect {
         padding: 0.4rem 1rem;
         font-size: 0.85rem;
     }
-    
+
     .hero {
         padding: var(--spacing-lg) var(--spacing-sm);
     }
-    
+
     .somi-notice-text {
         font-size: 0.8rem;
         padding: 0.6rem 1.2rem;
     }
-    
+
     .games-grid,
     .features-grid,
     .somi-comparison,
     .collection-gallery {
         grid-template-columns: 1fr;
     }
-    
+
     .somi-actions {
         max-width: 100%;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
     }
-    
+
     .about-stats {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .comparison-card {
         padding: 2rem;
     }
-    
+
     .balance-amount {
         font-size: 2.5rem;
     }
@@ -1934,4 +1983,3 @@ html {
 .hall-of-fame .btn-play.disabled {
     margin-top: 1rem;
 }
-

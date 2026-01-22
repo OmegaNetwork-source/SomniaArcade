@@ -73,14 +73,49 @@
 
             <div class="quest-notice"
                 style="background: linear-gradient(90deg, rgba(20,20,40,0.8) 0%, rgba(40,40,90,0.8) 100%); padding: 20px; border-radius: 12px; border: 1px solid #4a90e2; margin: 10px auto 30px; text-align: center; max-width: 800px; box-shadow: 0 4px 20px rgba(74, 144, 226, 0.2);">
-                <h3 style="color: #4a90e2; margin: 0 0 10px 0; font-size: 1.3em;">🏆 Somnia Quest: Unified Scoring</h3>
-                <p style="margin: 0; color: #e0e0e0; font-size: 1.1em; line-height: 1.5;">
-                    Your score is tracked globally across <strong>ALL</strong> games!
-                    Play Bushido, Space Pilot, or Snake Arena to contribute to your total Quest Score type.
-                    <br>
-                    <strong style="color: #ffcc00; display: block; margin-top: 8px; font-size: 1.1em;">Goal: Reach 5,000
-                        Total Points to Complete the Quest</strong>
+                <h3
+                    style="color: #4a90e2; margin: 0 0 15px 0; font-size: 1.5em; text-transform: uppercase; letter-spacing: 2px;">
+                    🏆 Quest Tracker</h3>
+                <p style="margin: 0 0 20px; color: #e0e0e0; font-size: 1rem; line-height: 1.5;">
+                    Your score is tracked globally across <strong>ALL</strong> games. Check your progress towards the
+                    5,000 point goal.
                 </p>
+
+                <div class="quest-input-group"
+                    style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" id="quest-wallet-input" placeholder="Enter Wallet Address (0x...)"
+                        style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 50px; color: white; width: 350px; font-family: monospace; outline: none; backdrop-filter: blur(10px);">
+                    <button id="btn-check-quest" class="btn-primary"
+                        style="padding: 12px 30px; border-radius: 50px; cursor: pointer; border: none; font-weight: 600;">Check
+                        Status</button>
+                </div>
+
+                <div id="quest-results"
+                    style="display: none; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
+                        <div class="quest-stat">
+                            <span
+                                style="display: block; font-size: 0.8em; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Total
+                                Score</span>
+                            <span id="quest-total-score"
+                                style="display: block; font-size: 2em; font-weight: bold; color: #fff; text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);">0</span>
+                        </div>
+                        <div class="quest-stat">
+                            <span
+                                style="display: block; font-size: 0.8em; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Status</span>
+                            <span id="quest-status-text"
+                                style="display: block; font-size: 1.5em; font-weight: bold; color: #ffcc00;">In
+                                Progress</span>
+                        </div>
+                        <div class="quest-stat">
+                            <span
+                                style="display: block; font-size: 0.8em; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Remaining</span>
+                            <span id="quest-remaining"
+                                style="display: block; font-size: 2em; font-weight: bold; color: #ff4f6d;">5000</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

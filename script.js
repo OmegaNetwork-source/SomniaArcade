@@ -126,6 +126,10 @@ function updateWalletUI() {
         connectWalletBtn.textContent = `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
         connectWalletBtn.classList.add('connected');
         somiBalanceNav.style.display = 'flex';
+
+        // Auto-fill Quest Tracker
+        const questInput = document.getElementById('quest-wallet-input');
+        if (questInput) questInput.value = walletAddress;
     } else {
         connectWalletBtn.textContent = 'Connect Wallet';
         connectWalletBtn.classList.remove('connected');
@@ -513,4 +517,71 @@ document.addEventListener('DOMContentLoaded', async () => {
 console.log('%c🎮 Welcome to Somnia Arcade!', 'font-size: 20px; color: #00D4FF; font-weight: bold;');
 console.log('%cBuilt on the Somnia Network', 'font-size: 14px; color: #6B00E5;');
 console.log('%cInterested in building games? Contact us!', 'font-size: 12px; color: #0080FF;');
+
+// Quest Tracker Logic
+const questCheckBtn = document.getElementById('btn-check-quest');
+const questInput = document.getElementById('quest-wallet-input');
+const questResults = document.getElementById('quest-results');
+
+if (questCheckBtn && questInput) {
+    questCheckBtn.addEventListener('click', checkQuestStatus);
+    questInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkQuestStatus();
+    });
+}
+
+async function checkQuestStatus() {
+    const address = questInput.value.trim();
+    if (!address || !address.startsWith('0x')) {
+        alert('Please enter a valid wallet address');
+        return;
+    }
+
+    const originalText = questCheckBtn.textContent;
+    questCheckBtn.textContent = 'Checking...';
+    questCheckBtn.disabled = true;
+
+    try {
+        // Use the verify endpoint which sums up all scores
+        const response = await fetch(`https://arcadebots.solarstudios.co/api/verify?wallet=${address}`);
+        const data = await response.json();
+
+        if (data && typeof data.totalScore !== 'undefined') {
+            document.getElementById('quest-total-score').textContent = data.totalScore.toLocaleString();
+
+            const statusText = document.getElementById('quest-status-text');
+            const remainingVal = document.getElementById('quest-remaining');
+
+            if (data.completed) {
+                statusText.textContent = "COMPLETED! 🎉";
+                statusText.style.color = "#45ffb1"; // Success Green
+                remainingVal.textContent = "0";
+                remainingVal.style.color = "#45ffb1";
+            } else {
+                statusText.textContent = "In Progress";
+                statusText.style.color = "#ffcc00"; // Warning Yellow
+                const needed = Math.max(0, 5000 - data.totalScore);
+                remainingVal.textContent = needed.toLocaleString();
+                remainingVal.style.color = "#ff4f6d"; // Red
+            }
+
+            questResults.style.display = 'block';
+
+            // Animation for effect
+            questResults.style.opacity = '0';
+            requestAnimationFrame(() => {
+                questResults.style.transition = 'opacity 0.5s ease';
+                questResults.style.opacity = '1';
+            });
+        } else {
+            alert('Could not fetch data. Try again later.');
+        }
+    } catch (error) {
+        console.error('Quest check failed:', error);
+        alert('Failed to connect to Quest API. Make sure you are online.');
+    } finally {
+        questCheckBtn.textContent = originalText;
+        questCheckBtn.disabled = false;
+    }
+}
 

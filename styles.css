@@ -44,14 +44,18 @@ body {
 /* ===== Navigation ===== */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
     z-index: 1000;
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(107, 0, 229, 0.1);
+    background: rgba(20, 25, 40, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .nav-content {
@@ -505,8 +509,8 @@ body::after {
     position: relative;
     margin-top: 3rem;
     padding: 2.5rem;
-    border-radius: 32px;
-    background: rgba(12, 18, 34, 0.72);
+    border-radius: 40px;
+    background: rgba(12, 18, 34, 0.4);
     backdrop-filter: blur(12px);
 }
 
@@ -523,8 +527,8 @@ body::after {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.85), rgba(107, 0, 229, 0.85));
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(150, 100, 255, 0.3));
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -660,14 +664,15 @@ body::after {
 }
 
 .game-card {
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
     overflow: hidden;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .game-card:hover {
@@ -948,7 +953,7 @@ body::after {
     padding: 1rem;
     background: var(--gradient-main);
     border: none;
-    border-radius: 12px;
+    border-radius: 100px;
     color: white;
     font-size: 1rem;
     font-weight: 600;

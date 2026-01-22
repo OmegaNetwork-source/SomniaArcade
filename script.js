@@ -18,7 +18,7 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 50) {
         navbar.style.background = 'rgba(10, 10, 15, 0.95)';
         navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
@@ -26,7 +26,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(10, 10, 15, 0.8)';
         navbar.style.boxShadow = 'none';
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -82,13 +82,13 @@ async function connectWallet() {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             walletAddress = accounts[0];
             walletConnected = true;
-            
+
             // Update UI
             updateWalletUI();
-            
+
             // Fetch SOMI balance
             await fetchSomiBalance();
-            
+
             // Listen for account changes
             window.ethereum.on('accountsChanged', handleAccountsChanged);
             window.ethereum.on('chainChanged', () => {
@@ -96,7 +96,7 @@ async function connectWallet() {
             });
         } else {
             // Fallback: show mock connection for demo
-            walletAddress = '0x' + Array.from({length: 40}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+            walletAddress = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
             walletConnected = true;
             updateWalletUI();
             // Mock balance for demo
@@ -136,11 +136,11 @@ function updateWalletUI() {
 // Fetch SOMI Balance
 async function fetchSomiBalance() {
     if (!walletConnected || !walletAddress) return;
-    
+
     try {
         if (typeof window.ethereum !== 'undefined' && typeof ethers !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            
+
             // If SOMI contract address is set, fetch token balance
             if (SOMI_CONTRACT_ADDRESS && SOMI_CONTRACT_ADDRESS !== '0x0000000000000000000000000000000000000000') {
                 try {
@@ -153,16 +153,16 @@ async function fetchSomiBalance() {
                         ],
                         provider
                     );
-                    
+
                     // Get balance and decimals
                     const [balance, decimals] = await Promise.all([
                         contract.balanceOf(walletAddress),
                         contract.decimals().catch(() => SOMI_DECIMALS) // Fallback to default if decimals() not available
                     ]);
-                    
+
                     // Convert from wei/smallest unit to human-readable format
                     somiBalance = parseFloat(ethers.utils.formatUnits(balance, decimals));
-                    
+
                 } catch (tokenError) {
                     console.error('Error fetching SOMI token balance:', tokenError);
                     // Fallback to native balance if token fetch fails
@@ -202,7 +202,7 @@ async function fetchSomiBalance() {
         } else {
             somiBalance = 0;
         }
-        
+
         updateSomiBalance();
     } catch (error) {
         console.error('Error fetching SOMI balance:', error);
@@ -253,7 +253,7 @@ window.addEventListener('load', async () => {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const floatingCards = document.querySelectorAll('.floating-card');
-    
+
     floatingCards.forEach((card, index) => {
         const speed = (index + 1) * 0.3;
         card.style.transform = `translateY(${scrolled * speed}px)`;
@@ -266,16 +266,16 @@ document.querySelectorAll('.game-card').forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 20;
         const rotateY = (centerX - x) / 20;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
     });
@@ -285,19 +285,19 @@ document.querySelectorAll('.game-card').forEach(card => {
 function animateCounter(element, target, duration = 2000) {
     const start = 0;
     const startTime = performance.now();
-    
+
     function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         const current = Math.floor(progress * target);
         element.textContent = current.toLocaleString();
-        
+
         if (progress < 1) {
             requestAnimationFrame(update);
         }
     }
-    
+
     requestAnimationFrame(update);
 }
 
@@ -305,11 +305,14 @@ function animateCounter(element, target, duration = 2000) {
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const statValue = entry.target.querySelector('.stat-value');
             if (statValue && !statValue.classList.contains('animated')) {
-                const target = parseInt(statValue.textContent.replace(/,/g, ''));
-                animateCounter(statValue, target);
-                statValue.classList.add('animated');
+                const rawValue = statValue.textContent.replace(/,/g, '');
+                const target = parseInt(rawValue);
+
+                if (!isNaN(target)) {
+                    animateCounter(statValue, target);
+                    statValue.classList.add('animated');
+                }
             }
         }
     });
@@ -346,30 +349,30 @@ document.addEventListener('keydown', (e) => {
 // Load gallery images from postimg.cc
 document.addEventListener('DOMContentLoaded', async () => {
     const galleryItems = document.querySelectorAll('.gallery-item');
-    
+
     // Manual direct URLs map - update these with actual direct image URLs if known
     // Format: code -> direct URL
     const manualDirectUrls = {
         // Example: 'SnrxwD72': 'https://i.postimg.cc/SnrxwD72/image.png',
     };
-    
+
     // Process each gallery item
     for (const item of galleryItems) {
         const img = item.querySelector('img');
         const pageUrl = item.dataset.pageUrl;
         const code = item.dataset.imageCode;
-        
+
         // Check manual URLs first
         if (manualDirectUrls[code]) {
             img.src = manualDirectUrls[code];
             img.style.opacity = '1';
-            
+
             item.addEventListener('click', () => {
                 viewFullImage(img.src);
             });
             continue;
         }
-        
+
         // Try expanded list of possible URL formats (more comprehensive)
         const possibleUrls = [
             // Direct postimg.cc image CDN formats
@@ -387,10 +390,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             `https://postimg.cc/${code}.png`,
             `https://postimg.cc/${code}.jpg`,
         ];
-        
+
         let loaded = false;
         let triedUrls = [];
-        
+
         // Try loading each URL
         for (const url of possibleUrls) {
             const loadedUrl = await new Promise((resolve) => {
@@ -405,7 +408,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setTimeout(() => resolve(null), 3000);
                 testImg.src = url;
             });
-            
+
             if (loadedUrl) {
                 img.src = loadedUrl;
                 img.style.opacity = '1';
@@ -413,7 +416,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 break;
             }
         }
-        
+
         // If all URL attempts failed, try fetching via CORS proxy (silently fail if it doesn't work)
         if (!loaded) {
             try {
@@ -422,18 +425,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                     `https://api.allorigins.win/get?url=${encodeURIComponent(pageUrl)}`,
                     `https://corsproxy.io/?${encodeURIComponent(pageUrl)}`
                 ];
-                
+
                 for (const proxyUrl of proxies) {
                     try {
                         const response = await Promise.race([
                             fetch(proxyUrl),
                             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 5000))
                         ]);
-                        
+
                         if (response.ok) {
                             const data = await response.json();
                             const html = data.contents || data;
-                            
+
                             // Extract image URL from HTML
                             const imgMatch = html.match(/https?:\/\/i\.postimg\.cc\/[^\s"']+\.(png|jpg|jpeg|webp)/i);
                             if (imgMatch && imgMatch[0]) {
@@ -452,13 +455,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Silently continue if CORS proxy fails
             }
         }
-        
+
         // If still not loaded, show placeholder
         if (!loaded) {
             img.style.opacity = '0.3';
             img.style.background = 'rgba(255, 255, 255, 0.05)';
             img.alt = 'Click to view image';
-            
+
             // Check if placeholder already exists
             let placeholder = item.querySelector('.image-placeholder');
             if (!placeholder) {
@@ -470,7 +473,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 item.appendChild(placeholder);
             }
         }
-        
+
         // Set up click handler
         item.addEventListener('click', () => {
             if (img.src && (img.src.includes('i.postimg.cc') || img.src.includes('postimg.cc'))) {
@@ -480,17 +483,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
-    
+
     // Prevent modal close when clicking on image or button
     const modalImage = document.getElementById('modalImage');
     const galleryViewButtons = document.querySelectorAll('.gallery-view-btn');
-    
+
     if (modalImage) {
         modalImage.addEventListener('click', (e) => {
             e.stopPropagation();
         });
     }
-    
+
     galleryViewButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();

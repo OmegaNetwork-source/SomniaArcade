@@ -777,6 +777,72 @@ body {
     transform: scale(1.1);
 }
 
+/* Quake card – blood outline & trailer */
+.game-card.quake-card {
+    border: 2px solid #8b0000;
+    box-shadow: 0 0 0 1px rgba(139, 0, 0, 0.4), 0 0 20px rgba(139, 0, 0, 0.2), inset 0 0 30px rgba(139, 0, 0, 0.05);
+}
+.game-card.quake-card:hover {
+    border-color: #b22222;
+    box-shadow: 0 0 0 2px rgba(178, 34, 34, 0.5), 0 20px 60px rgba(139, 0, 0, 0.35), inset 0 0 40px rgba(139, 0, 0, 0.08);
+}
+
+/* Quake highlight – full width, top, wider layout */
+.game-card.quake-highlight {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0;
+    max-width: 100%;
+}
+.game-card.quake-highlight .game-image.quake-bg {
+    height: 320px;
+    min-height: 280px;
+}
+.game-card.quake-highlight .game-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+@media (max-width: 900px) {
+    .game-card.quake-highlight {
+        grid-template-columns: 1fr;
+    }
+    .game-card.quake-highlight .game-image.quake-bg {
+        height: 250px;
+    }
+}
+
+.quake-bg {
+    background: linear-gradient(180deg, #1a0a0a 0%, #2d1515 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.quake-trailer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #0d0505;
+}
+
+.quake-logo-wrap {
+    margin-bottom: 0.5rem;
+}
+.quake-logo {
+    height: 32px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(139, 0, 0, 0.5));
+}
+
 .placeholder-bg-1 {
     background: linear-gradient(135deg, var(--somnia-purple) 0%, var(--somnia-dark-purple) 100%);
 }
